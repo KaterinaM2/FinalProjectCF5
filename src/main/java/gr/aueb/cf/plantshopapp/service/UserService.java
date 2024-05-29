@@ -6,26 +6,46 @@ import gr.aueb.cf.plantshopapp.dto.User;
 import gr.aueb.cf.plantshopapp.service.exception.UserAlreadyExistsException;
 import gr.aueb.cf.plantshopapp.service.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class for managing users.
+ * Implements UserDetailsService for Spring Security authentication.
+ */
 @Service
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
+    private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 
     /**
+     * Constructor-based dependency injection for UserRepository.
+     * @param userRepository the user repository
+     */
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    /**
+     * Setter-based dependency injection for PasswordEncoder.
+     * @param passwordEncoder the password encoder
+     */
+    @Autowired
+    public void setPasswordEncoder(@Lazy PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    /**
      * Registers a new user in the system.
-     * @param user User details
-     * @return Registered user
-     * @throws UserAlreadyExistsException if a user with the same username or email already exists
+     * @param user the user to register
+     * @return the registered user
+     * @throws UserAlreadyExistsException if the user already exists
      */
     public User registerUser(User user) throws UserAlreadyExistsException {
         if (userRepository.findByUsername(user.getUsername()).isPresent() ||
@@ -38,9 +58,9 @@ public class UserService implements UserDetailsService {
 
     /**
      * Finds a user by username.
-     * @param username Username
-     * @return User
-     * @throws UserNotFoundException if no user is found with the given username
+     * @param username the username to search
+     * @return the found user
+     * @throws UserNotFoundException if the user is not found
      */
     public User findByUsername(String username) throws UserNotFoundException {
         return userRepository.findByUsername(username)
@@ -48,11 +68,10 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * Loads a user by username.
-     * This method is required by UserDetailsService.
-     * @param username Username
-     * @return UserDetails
-     * @throws UsernameNotFoundException if no user is found with the given username
+     * Loads a user by username for Spring Security authentication.
+     * @param username the username to search
+     * @return the UserDetails object
+     * @throws UsernameNotFoundException if the user is not found
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -61,7 +80,7 @@ public class UserService implements UserDetailsService {
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .roles("USER") // You can customize roles as needed
+                .roles("USER")
                 .build();
     }
 }

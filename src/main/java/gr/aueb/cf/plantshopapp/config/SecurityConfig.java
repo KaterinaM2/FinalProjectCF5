@@ -4,6 +4,7 @@ import gr.aueb.cf.plantshopapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,21 +18,28 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 /**
  * Security configuration class for the application.
- * This class configures authentication and authorization settings.
+ * Configures authentication and authorization settings.
  */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    /**
+     * Constructor-based dependency injection for UserService.
+     * @param userService the user service
+     */
+    public SecurityConfig(@Lazy UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Configures the security filter chain.
      * This method sets up the HTTP security, including CSRF protection and authorization rules.
      *
-     * @param http the {@link HttpSecurity} to modify
-     * @return the configured {@link SecurityFilterChain}
+     * @param http the HttpSecurity to modify
+     * @return the configured SecurityFilterChain
      * @throws Exception if an error occurs
      */
     @Bean
@@ -49,10 +57,10 @@ public class SecurityConfig {
 
     /**
      * Configures the authentication manager.
-     * This method sets up the {@link AuthenticationManager} with a {@link UserDetailsService} and a {@link PasswordEncoder}.
+     * This method sets up the AuthenticationManager with a UserDetailsService and a PasswordEncoder.
      *
-     * @param http the {@link HttpSecurity} to modify
-     * @return the configured {@link AuthenticationManager}
+     * @param http the HttpSecurity to modify
+     * @return the configured AuthenticationManager
      * @throws Exception if an error occurs
      */
     @Bean
@@ -67,13 +75,12 @@ public class SecurityConfig {
 
     /**
      * Creates a bean for password encoding.
-     * This method returns an instance of {@link BCryptPasswordEncoder}.
+     * This method returns an instance of BCryptPasswordEncoder.
      *
-     * @return a {@link PasswordEncoder} bean
+     * @return a PasswordEncoder bean
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
-
