@@ -14,7 +14,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     /**
-     * Retrieves all products from the repository.
+     * Retrieves all products from the repository
      * @return List of products
      */
     public List<Product> getAllProducts() {
@@ -22,8 +22,8 @@ public class ProductService {
     }
 
     /**
-     * Retrieves a product by its ID.
-     * @param id Product ID
+     * Retrieves a product by its id
+     * @param id Product id
      * @return Product
      */
     public Product getProductById(Long id) {
@@ -31,7 +31,7 @@ public class ProductService {
     }
 
     /**
-     * Saves a product to the repository.
+     * Saves a product to the repository
      * @param product Product to save
      * @return Saved product
      */
@@ -40,8 +40,8 @@ public class ProductService {
     }
 
     /**
-     * Deletes a product by its ID.
-     * @param id Product ID
+     * Deletes a product by its id
+     * @param id Product id
      */
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);

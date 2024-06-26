@@ -16,7 +16,7 @@ public class OrderController {
     private OrderService orderService;
 
     /**
-     * Retrieves all orders.
+     * Retrieves all orders
      * @return ResponseEntity with list of orders
      */
     @GetMapping
@@ -25,7 +25,7 @@ public class OrderController {
     }
 
     /**
-     * Retrieves an order by ID.
+     * Retrieves an order by ID
      * @param id Order ID
      * @return ResponseEntity with the order
      */
@@ -36,7 +36,7 @@ public class OrderController {
     }
 
     /**
-     * Saves an order.
+     * Saves an order
      * @param order Order details
      * @return ResponseEntity with the saved order
      */
@@ -46,7 +46,7 @@ public class OrderController {
     }
 
     /**
-     * Deletes an order by ID.
+     * Deletes an order by ID
      * @param id Order ID
      * @return ResponseEntity with status
      */

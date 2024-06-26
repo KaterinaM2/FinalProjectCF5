@@ -17,8 +17,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 /**
- * Security configuration class for the application.
- * Configures authentication and authorization settings.
+ * Security configuration class that configures
+ * authentication and authorization settings
+ *
  */
 @Configuration
 @EnableWebSecurity
@@ -27,7 +28,7 @@ public class SecurityConfig {
     private final UserService userService;
 
     /**
-     * Constructor-based dependency injection for UserService.
+     * Constructor-based dependency injection for UserService
      * @param userService the user service
      */
     public SecurityConfig(@Lazy UserService userService) {
@@ -35,8 +36,7 @@ public class SecurityConfig {
     }
 
     /**
-     * Configures the security filter chain.
-     * This method sets up the HTTP security, including CSRF protection and authorization rules.
+     * Sets up the HTTP security, including CSRF protection and authorization rules
      *
      * @param http the HttpSecurity to modify
      * @return the configured SecurityFilterChain
@@ -56,7 +56,7 @@ public class SecurityConfig {
     }
 
     /**
-     * Configures the authentication manager.
+     * Configures the authentication manager
      * This method sets up the AuthenticationManager with a UserDetailsService and a PasswordEncoder.
      *
      * @param http the HttpSecurity to modify
@@ -74,8 +74,8 @@ public class SecurityConfig {
     }
 
     /**
-     * Creates a bean for password encoding.
-     * This method returns an instance of BCryptPasswordEncoder.
+     * Creates a bean for password encoding
+     * This method returns an instance of BCryptPasswordEncoder
      *
      * @return a PasswordEncoder bean
      */

@@ -17,7 +17,7 @@ public class ProductController {
     private ProductService productService;
 
     /**
-     * Retrieves all products.
+     * Retrieves all products
      * @return ResponseEntity with list of products
      */
     @GetMapping
@@ -26,7 +26,7 @@ public class ProductController {
     }
 
     /**
-     * Retrieves a product by ID.
+     * Retrieves a product by ID
      * @param id Product ID
      * @return ResponseEntity with the product
      */
@@ -47,7 +47,7 @@ public class ProductController {
     }
 
     /**
-     * Deletes a product by ID.
+     * Deletes a product by ID
      * @param id Product ID
      * @return ResponseEntity with status
      */

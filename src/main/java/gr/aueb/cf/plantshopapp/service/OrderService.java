@@ -22,8 +22,8 @@ public class OrderService {
     }
 
     /**
-     * Retrieves an order by its ID.
-     * @param id Order ID
+     * Retrieves an order by its id.
+     * @param id Order id
      * @return Order
      */
     public Order getOrderById(Long id) {
@@ -40,8 +40,8 @@ public class OrderService {
     }
 
     /**
-     * Deletes an order by its ID.
-     * @param id Order ID
+     * Deletes an order by its id
+     * @param id Order id
      */
     public void deleteOrder(Long id) {
         orderRepository.deleteById(id);
